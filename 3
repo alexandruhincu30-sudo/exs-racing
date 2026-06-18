@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int MaxMin(int v[], int min,int max);
+int verif (int min,int max);
+
+int main() {
+	int v[150];
+	int input, qtd = 0,i,val_ins,A,B;
+
+	
+	printf("Insere um intervalo: ");
+	scanf("%d %d", &A,&B);
+
+		MaxMin(v,A,B);
+
+		for(i = 0; i < B-A+1; i++) 
+		{
+			printf("%d ", v[i]);
+		}
+
+	return 0;
+}
+
+
+int MaxMin(int v[], int min,int max)
+{
+	int  i2;
+
+	int qtd = max - min + 1;
+
+		for(i2 = 0; i2 < qtd; i2++) {
+				v[i2] = max;
+				max--;
+			}
+		return 1;
+}
