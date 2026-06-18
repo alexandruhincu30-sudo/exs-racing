@@ -1,0 +1,82 @@
+#include <stdio.h>
+
+int validar_candidato(int candidato, int max_candidatos);
+int validar_entrada(int num_candidatos, int total_votos);
+int percentagem(int votos, int total_votos);
+int encontrar_vencedor(int votos_candidatos[], int num_candidatos);
+
+int main()
+{
+	int num_candidatos, total_votos, idx, voto, votos_candidatos[100];
+	int vencedor, max_votos;
+	
+	printf("Numero de candidatos e eleitores: ");
+	scanf("%d %d", &num_candidatos, &total_votos);
+	
+	if(validar_entrada(num_candidatos, total_votos) == 0) {
+		printf("Entrada invalida\n");
+		return 1;
+	}
+	
+	for(idx = 0; idx < num_candidatos; idx++) {
+		votos_candidatos[idx] = 0;
+	}
+	
+	for(idx = 0; idx < total_votos; idx++) {
+		do {
+			scanf("%d", &voto);
+			
+			if(validar_candidato(voto, num_candidatos) == 0) {
+				printf("Candidato invalido! Tente novamente: ");
+			}
+		} while(validar_candidato(voto, num_candidatos) == 0);
+		
+		votos_candidatos[voto - 1]++;
+	}
+	
+	vencedor = encontrar_vencedor(votos_candidatos, num_candidatos);
+	max_votos = votos_candidatos[vencedor - 1];
+	
+	printf("Vencedor e percetagem: %d: %.2f%%\n", 
+	       vencedor, 
+	       (float)percentagem(max_votos, total_votos));
+	
+	return 0;
+}
+
+int validar_entrada(int num_candidatos, int total_votos)
+{
+	if(num_candidatos <= 0 || num_candidatos > 100)
+		return 0;
+	if(total_votos <= 0)
+		return 0;
+	return 1;
+}
+
+int validar_candidato(int candidato, int max_candidatos)
+{
+	if(candidato < 1 || candidato > max_candidatos)
+		return 0;
+	else
+		return 1;
+}
+
+int percentagem(int votos, int total_votos)
+{
+	if(total_votos == 0) return 0;  
+	return (votos * 100) / total_votos;  
+}
+
+int encontrar_vencedor(int votos_candidatos[], int num_candidatos)
+{
+	int idx, vencedor = 1, max_votos = votos_candidatos[0];
+	
+	for(idx = 1; idx < num_candidatos; idx++) {
+		if(votos_candidatos[idx] > max_votos) {
+			max_votos = votos_candidatos[idx];
+			vencedor = idx + 1;
+		}
+	}
+	
+	return vencedor;
+}
