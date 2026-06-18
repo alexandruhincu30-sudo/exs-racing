@@ -1,0 +1,28 @@
+#include <stdio.h>
+#define MAX 12
+int main()
+{
+	int val[MAX];
+	int num,idx=0,qtd=0;
+
+
+	while(qtd < 12)
+	{
+
+		scanf("%d", &num);
+		if(num >10&&num<20)
+		{
+			val[idx] = num;
+			idx++;
+			qtd++;
+		}
+		else
+			printf("Valor invalido!\n");
+	}
+
+	for(idx=0;idx<MAX;idx++)
+	{
+		printf("%d ", val[idx]);
+	}
+	return 0;
+}
